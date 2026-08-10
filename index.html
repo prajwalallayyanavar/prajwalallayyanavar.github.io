@@ -231,8 +231,65 @@
     display:flex; align-items:center; justify-content:space-between;
     padding:10px 14px; border-bottom:1px solid var(--border); background:var(--panel-2);
   }
-  .term-dots{ display:flex; gap:6px; }
-  .term-dots span{ width:10px; height:10px; border-radius:50%; background:var(--border); }
+  /* Decorative terminal window controls — visual only */
+  .term-controls{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    flex-shrink:0;
+  }
+
+  .term-control{
+    width:13px;
+    height:13px;
+    border-radius:50%;
+    display:block;
+    position:relative;
+  }
+
+  .term-control.minimize{ background:#F2A93B; }
+  .term-control.minimize::after{
+    content:"";
+    position:absolute;
+    width:6px;
+    height:1px;
+    background:#0A0E12;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+  }
+
+  .term-control.maximize{ background:#6EE7A0; }
+  .term-control.maximize::after{
+    content:"";
+    position:absolute;
+    width:5px;
+    height:5px;
+    border:1px solid #0A0E12;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+  }
+
+  .term-control.close{ background:#E5484D; }
+  .term-control.close::before,
+  .term-control.close::after{
+    content:"";
+    position:absolute;
+    width:7px;
+    height:1px;
+    background:#0A0E12;
+    left:50%;
+    top:50%;
+  }
+
+  .term-control.close::before{
+    transform:translate(-50%,-50%) rotate(45deg);
+  }
+
+  .term-control.close::after{
+    transform:translate(-50%,-50%) rotate(-45deg);
+  }
   .term-title{ font-family:var(--font-mono); font-size:11px; color:var(--muted-2); }
   .term-status{ font-family:var(--font-mono); font-size:11px; color:var(--cyan); display:flex; align-items:center; gap:6px; }
   .term-status i{ width:6px; height:6px; border-radius:50%; background:var(--cyan); display:inline-block; box-shadow:0 0 6px var(--cyan); }
@@ -511,7 +568,11 @@
 
     <div class="terminal">
       <div class="term-bar">
-        <div class="term-dots"><span></span><span></span><span></span></div>
+        <div class="term-controls" aria-hidden="true">
+          <span class="term-control minimize"></span>
+          <span class="term-control maximize"></span>
+          <span class="term-control close"></span>
+        </div>
         <div class="term-title">soc-console — live feed</div>
         <div class="term-status"><i></i>ONLINE</div>
       </div>
