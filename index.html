@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,27 +28,6 @@
     --font-display: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
-    --header-bg: rgba(10,14,18,0.85);
-    --success: #6EE7A0;
-    --success-bg: rgba(110,231,160,0.1);
-    --success-border: rgba(110,231,160,0.3);
-  }
-
-  :root[data-theme="light"]{
-    --bg: #F3F5F7;
-    --panel: #FFFFFF;
-    --panel-2: #EEF1F4;
-    --border: #DCE2E8;
-    --amber: #C97C1C;
-    --cyan: #128C81;
-    --text: #10161D;
-    --muted: #4B5560;
-    --muted-2: #7A8590;
-    --danger: #C43138;
-    --header-bg: rgba(255,255,255,0.85);
-    --success: #0E7A46;
-    --success-bg: rgba(14,122,70,0.1);
-    --success-border: rgba(14,122,70,0.35);
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -61,7 +40,6 @@
     font-family: var(--font-body);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
-    transition: background .25s ease, color .25s ease;
   }
 
   body::before{
@@ -89,10 +67,9 @@
   /* ---------- NAV ---------- */
   header{
     position:sticky; top:0; z-index:50;
-    background: var(--header-bg);
+    background: rgba(10,14,18,0.85);
     backdrop-filter: blur(10px);
     border-bottom:1px solid var(--border);
-    transition: background .25s ease, border-color .25s ease;
   }
   nav{
     display:flex; align-items:center; justify-content:space-between;
@@ -125,18 +102,6 @@
   }
   .navcta:hover{ border-color:var(--cyan); color:var(--cyan); }
 
-  .theme-toggle{
-    width:34px; height:34px; border-radius:6px; border:1px solid var(--border); background:transparent;
-    color:var(--text); display:flex; align-items:center; justify-content:center; cursor:pointer;
-    transition: border-color .2s, color .2s; flex-shrink:0;
-  }
-  .theme-toggle:hover{ border-color:var(--amber); color:var(--amber); }
-  .theme-toggle svg{ width:16px; height:16px; }
-  .theme-toggle .icon-moon{ display:none; }
-  :root[data-theme="light"] .theme-toggle .icon-sun{ display:none; }
-  :root[data-theme="light"] .theme-toggle .icon-moon{ display:block; }
-  .nav-right{ display:flex; align-items:center; gap:12px; }
-
   .nav-toggle{
     display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px;
   }
@@ -162,6 +127,7 @@
     nav{ padding:16px 20px; }
     .nav-links{ display:none; }
     .navcta{ display:none; }
+    #themeToggle{ display:none; }
     .nav-toggle{ display:flex; }
     .mobile-menu{ display:flex; }
     .wrap{ padding:0 20px; }
@@ -169,7 +135,7 @@
 
   /* ---------- HERO ---------- */
   .hero{
-    padding:64px 0 48px;
+    padding:88px 0 64px;
   }
   .hero-grid{
     display:grid; grid-template-columns: 1.1fr 1fr; gap:56px; align-items:center;
@@ -246,7 +212,7 @@
   .term-line .tag{ flex-shrink:0; font-weight:600; }
   .tag.info{ color:var(--cyan); }
   .tag.warn{ color:var(--amber); }
-  .tag.ok{ color:var(--success); }
+  .tag.ok{ color:#6EE7A0; }
   .term-line .msg{ color:var(--muted); word-break:break-word; }
   .cursor{ display:inline-block; width:7px; height:14px; background:var(--cyan); margin-left:2px; animation: blink 1s step-start infinite; vertical-align:middle; }
 
@@ -279,8 +245,8 @@
   @media (max-width: 760px){ .statusbar .wrap{ grid-template-columns: repeat(2,1fr); } .stat{ border-bottom:1px solid var(--border); } }
 
   /* ---------- SECTION SHARED ---------- */
-  section{ padding:64px 0; position:relative; z-index:1; }
-  .section-head{ margin-bottom:36px; }
+  section{ padding:96px 0; position:relative; z-index:1; }
+  .section-head{ margin-bottom:48px; }
   .section-head .eyebrow{ margin-bottom:14px; }
   .section-head h2{
     font-family:var(--font-display); font-size:clamp(1.7rem,3vw,2.2rem); font-weight:700;
@@ -328,21 +294,6 @@
     border:1px solid var(--border); padding:4px 8px; border-radius:4px;
   }
 
-  /* ---------- FILTERS ---------- */
-  .filter-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:32px; }
-  .filter-pill{
-    font-family:var(--font-mono); font-size:12px; padding:8px 16px; border-radius:20px;
-    border:1px solid var(--border); background:var(--panel); color:var(--muted);
-    cursor:pointer; transition: all .2s;
-  }
-  .filter-pill:hover{ border-color:var(--cyan); color:var(--cyan); }
-  .filter-pill.active{ border-color:var(--amber); background:rgba(242,169,59,0.1); color:var(--amber); }
-  .project-card.hide, .skill-col.hide{ display:none; }
-  .filter-empty{
-    font-family:var(--font-mono); font-size:13px; color:var(--muted-2); padding:32px 0; text-align:center; display:none;
-  }
-  .filter-empty.show{ display:block; }
-
   /* ---------- PROJECTS ---------- */
   .project-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; align-items:start; }
   @media (max-width:1000px){ .project-grid{ grid-template-columns:1fr; } }
@@ -373,7 +324,7 @@
   .proj-link:hover{ color:var(--amber); gap:9px; }
 
   /* ---------- SKILLS ---------- */
-  .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .skills-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
   @media (max-width:900px){ .skills-grid{ grid-template-columns:repeat(2,1fr); } }
   .skill-col{ background:var(--panel); padding:24px; }
   .skill-col .cat{ font-family:var(--font-mono); font-size:11px; color:var(--cyan); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:16px; }
@@ -402,7 +353,7 @@
   .badge{
     font-family:var(--font-mono); font-size:10px; padding:3px 9px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px;
   }
-  .badge.done{ color:var(--success); background:var(--success-bg); border:1px solid var(--success-border); }
+  .badge.done{ color:#6EE7A0; background:rgba(110,231,160,0.1); border:1px solid rgba(110,231,160,0.3); }
   .badge.progress{ color:var(--amber); background:rgba(242,169,59,0.1); border:1px solid rgba(242,169,59,0.3); }
   .tl-item .org{ color:var(--muted); font-size:14px; }
 
@@ -425,25 +376,6 @@
     .contact-links a{ font-size:12px; padding:11px 16px; }
   }
 
-  .contact-link-wrap{ position:relative; display:inline-flex; }
-  .copy-btn{
-    display:flex; align-items:center; justify-content:center; width:34px; height:34px;
-    border:1px solid var(--border); border-radius:6px; background:var(--panel-2); color:var(--muted);
-    cursor:pointer; transition: all .2s; flex-shrink:0;
-  }
-  .copy-btn:hover{ border-color:var(--amber); color:var(--amber); }
-  .copy-btn svg{ width:14px; height:14px; }
-  .copy-btn.copied{ border-color:var(--success); color:var(--success); }
-  .contact-cluster{ display:flex; align-items:stretch; gap:8px; }
-  .copy-toast{
-    position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px);
-    background:var(--panel); border:1px solid var(--cyan); color:var(--cyan);
-    font-family:var(--font-mono); font-size:12.5px; padding:10px 18px; border-radius:6px;
-    opacity:0; pointer-events:none; transition: opacity .25s ease, transform .25s ease; z-index:100;
-    display:flex; align-items:center; gap:8px; box-shadow:0 10px 30px rgba(0,0,0,0.35);
-  }
-  .copy-toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-
   footer{
     padding:32px; text-align:center; font-family:var(--font-mono); font-size:12px; color:var(--muted-2);
     border-top:1px solid var(--border);
@@ -451,6 +383,66 @@
 
   .reveal{ opacity:0; transform:translateY(16px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- LIGHT THEME ---------- */
+  html[data-theme="light"]{
+    --bg: #F3F5F7;
+    --panel: #FFFFFF;
+    --panel-2: #F7F9FA;
+    --border: #DCE3E8;
+    --amber: #B8710F;
+    --cyan: #0E8A7D;
+    --text: #10161D;
+    --muted: #4B5763;
+    --muted-2: #7C8892;
+  }
+  html[data-theme="light"] body::before{ opacity:0.07; }
+  html[data-theme="light"] .terminal{ box-shadow: 0 20px 50px rgba(16,22,29,0.08); }
+  html[data-theme="light"] .tag.ok{ color:#0F9960; }
+  html[data-theme="light"] .badge.done{ color:#0F9960; background:rgba(15,153,96,0.08); border-color:rgba(15,153,96,0.3); }
+
+  /* ---------- THEME TOGGLE ---------- */
+  .theme-toggle{
+    display:flex; align-items:center; justify-content:center;
+    width:36px; height:36px; border-radius:6px; border:1px solid var(--border);
+    background:none; color:var(--text); cursor:pointer; transition: border-color .2s, color .2s;
+    flex-shrink:0;
+  }
+  .theme-toggle:hover{ border-color:var(--cyan); color:var(--cyan); }
+  .theme-toggle .icon-moon{ display:block; }
+  .theme-toggle .icon-sun{ display:none; }
+  html[data-theme="light"] .theme-toggle .icon-moon{ display:none; }
+  html[data-theme="light"] .theme-toggle .icon-sun{ display:block; }
+
+  .mobile-theme-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 32px; border-bottom:1px solid var(--border);
+  }
+  .mobile-theme-row span{ font-family:var(--font-mono); font-size:13px; color:var(--muted); }
+
+  /* ---------- COPY BUTTON ---------- */
+  .contact-item{ display:flex; align-items:stretch; gap:1px; }
+  .contact-item a{ border-radius:6px 0 0 6px; border-right:none; }
+  .copy-btn{
+    display:flex; align-items:center; justify-content:center; width:42px;
+    border:1px solid var(--border); border-radius:0 6px 6px 0; background:none;
+    color:var(--muted-2); cursor:pointer; transition: color .2s, border-color .2s;
+  }
+  .copy-btn:hover{ color:var(--cyan); border-color:var(--cyan); }
+  .copy-btn.copied{ color:#0F9960; border-color:#0F9960; }
+  @media (max-width:480px){ .contact-item{ width:100%; } .contact-item a{ flex:1; } }
+
+  /* ---------- FILTERS ---------- */
+  .filter-bar{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:32px; }
+  .filter-btn{
+    font-family:var(--font-mono); font-size:12px; padding:8px 16px; border-radius:20px;
+    border:1px solid var(--border); background:none; color:var(--muted); cursor:pointer;
+    transition: all .2s;
+  }
+  .filter-btn:hover{ border-color:var(--cyan); color:var(--cyan); }
+  .filter-btn.active{ background:var(--cyan); border-color:var(--cyan); color:#0A0E12; font-weight:600; }
+  html[data-theme="light"] .filter-btn.active{ color:#fff; }
+  .skill-col.filtered-out, .project-card.filtered-out{ display:none; }
 </style>
 </head>
 <body>
@@ -466,18 +458,23 @@
       <a href="#certs">Certs</a>
       <a href="#contact">Contact</a>
     </div>
-    <div class="nav-right">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode" title="Toggle theme">
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
-      </button>
-      <a class="navcta" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=allayyanavarprajwal@gmail.com&amp;su=Portfolio%20Inquiry" target="_blank" rel="noopener">Get in touch</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <a class="navcta" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=allayyanavarprajwal@gmail.com&amp;su=Portfolio%20Inquiry" target="_blank" rel="noopener">Get in touch</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme">
+      <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.5A8.5 8.5 0 1 1 11.5 3a7 7 0 0 0 9.5 9.5Z"/></svg>
+      <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
+    </button>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
   <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-theme-row">
+      <span>Theme</span>
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle light/dark theme">
+        <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.5A8.5 8.5 0 1 1 11.5 3a7 7 0 0 0 9.5 9.5Z"/></svg>
+        <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
+      </button>
+    </div>
     <a href="#about">About</a>
     <a href="#focus">Focus</a>
     <a href="#projects">Projects</a>
@@ -534,11 +531,10 @@
     <div class="about-grid">
       <div class="reveal">
         <div class="eyebrow">About</div>
-<h2 style="font-family:var(--font-display); font-size:clamp(1.7rem,3vw,2.2rem); font-weight:700; margin-bottom:20px;">Watching the wire, chasing the anomaly.</h2>
-
-<p>I'm a <strong>SOC Analyst and Team Lead</strong> at Vandyam Solutions, focused on security monitoring, threat detection, alert investigation, and incident response. I work with Microsoft Sentinel and KQL to investigate security events, analyze suspicious activity, and support effective incident response. My experience includes detection tuning, malware analysis, and phishing investigations.</p>
-
-<p>As a <strong>Team Lead</strong>, I coordinate response activities during <strong>high-severity incidents</strong> and have developed <strong>15+ incident response playbooks and runbooks</strong> to strengthen investigation and response processes. I'm expanding my expertise in <strong>penetration testing, cloud security, and network security</strong> through hands-on labs, CTFs, and continuous learning. I hold a <strong>Top 1% ranking on TryHackMe</strong> and am currently preparing for Microsoft's <strong>SC-200 certification</strong>.</p>
+        <h2 style="font-family:var(--font-display); font-size:clamp(1.7rem,3vw,2.2rem); font-weight:700; margin-bottom:20px;">Watching the wire, chasing the anomaly.</h2>
+        <p>I'm a <strong>SOC Analyst</strong> with 8 months of hands-on experience monitoring, triaging, and investigating security alerts across enterprise environments. My work centers on catching what shouldn't be there — suspicious sign-ins, anomalous traffic, misconfigured cloud assets — before they become incidents.</p>
+        <p>Alongside SOC operations, I'm building depth in <strong>penetration testing</strong> and <strong>cloud &amp; network security</strong>, treating every CTF room and certification as practice for the next real investigation. I hold a <strong>Top 1% ranking on TryHackMe</strong> and am currently working toward Microsoft's SC-200.</p>
+      </div>
       <div class="edu-stack reveal">
         <div class="edu-card">
           <div class="edu-top">
@@ -553,7 +549,7 @@
             <div class="duration">Jan 2026 — Present</div>
           </div>
           <h3>SOC Analyst</h3>
-          <div class="sub">Vandyam Solutions Pvt Ltd — triaging alerts and tuning KQL detection rules in Microsoft Sentinel, investigating malware and phishing via Defender for Endpoint, and running incident response on rotational shifts across Datto RMM, AD Audit Plus, PRTG, ServiceNow, and Jira.</div>
+          <div class="sub">Vandyam Solutions Pvt Ltd — security monitoring &amp; incident response across enterprise environments, using Microsoft Sentinel, Palo Alto Firewall, Datto RMM, AD Audit Plus, and PRTG.</div>
         </div>
       </div>
     </div>
@@ -573,8 +569,8 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4Z"/><path d="M9 12l2 2 4-4"/></svg>
         </div>
         <h3>SOC / Blue Team</h3>
-        <p>Real-time alert triage, KQL-based threat hunting, and incident response using enterprise SIEM and EDR tooling.</p>
-        <div class="tools"><span>Microsoft Sentinel</span><span>Splunk</span><span>Microsoft Defender</span><span>KQL</span><span>ServiceNow</span><span>Jira</span></div>
+        <p>Real-time alert triage, log correlation, and incident response using enterprise SIEM tooling.</p>
+        <div class="tools"><span>Microsoft Sentinel</span><span>Splunk</span><span>Microsoft Defender</span></div>
       </div>
       <div class="focus-card reveal">
         <div class="icon">
@@ -590,7 +586,7 @@
         </div>
         <h3>Penetration Testing</h3>
         <p>Web application and network testing to identify and validate exploitable weaknesses.</p>
-        <div class="tools"><span>Burp Suite</span><span>Wireshark</span><span>Nmap</span><span>Python</span><span>CTFs</span></div>
+        <div class="tools"><span>Burp Suite</span><span>Python</span><span>CTFs</span></div>
       </div>
     </div>
   </div>
@@ -603,14 +599,15 @@
       <h2>Projects</h2>
       <p>Labs and workflows I've built to go deeper than day-to-day monitoring.</p>
     </div>
-    <div class="filter-row" id="projectFilters" role="group" aria-label="Filter projects by domain">
-      <button class="filter-pill active" data-filter="all">All</button>
-      <button class="filter-pill" data-filter="siem">SOC / Blue Team</button>
-      <button class="filter-pill" data-filter="cloud">Network &amp; Cloud</button>
-      <button class="filter-pill" data-filter="pentest">Pentest</button>
+    <div class="filter-bar" id="projectFilters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="siem">SIEM &amp; Detection</button>
+      <button class="filter-btn" data-filter="logging">Log Analysis</button>
+      <button class="filter-btn" data-filter="ad">Active Directory</button>
+      <button class="filter-btn" data-filter="ctf">CTF</button>
     </div>
-    <div class="project-grid" id="projectGrid">
-      <div class="project-card reveal" data-tags="siem cloud">
+    <div class="project-grid">
+      <div class="project-card reveal" data-tags="siem">
         <div class="proj-head">
           <h3>Enterprise Monitoring Service</h3>
           <div class="tools"><span>Microsoft Sentinel</span><span>Defender for Endpoint</span><span>Datto RMM</span><span>n8n</span></div>
@@ -622,7 +619,7 @@
         </ul>
       </div>
 
-      <div class="project-card reveal" data-tags="siem">
+      <div class="project-card reveal" data-tags="logging">
         <div class="proj-head">
           <h3>SOC Lab Setup using Elastic Stack</h3>
           <div class="tools"><span>Ubuntu</span><span>Elasticsearch</span><span>Logstash</span><span>Kibana</span></div>
@@ -633,7 +630,7 @@
         </ul>
       </div>
 
-      <div class="project-card reveal" data-tags="cloud pentest">
+      <div class="project-card reveal" data-tags="ad">
         <div class="proj-head">
           <h3>Active Directory Security Lab</h3>
           <div class="tools"><span>Windows Server</span><span>Kali Linux</span><span>Windows 10</span></div>
@@ -643,7 +640,7 @@
           <li>Deepened understanding of Windows event log analysis and how common AD attack vectors can be detected and defended against.</li>
         </ul>
       </div>
-      <div class="project-card reveal" data-tags="pentest">
+      <div class="project-card reveal" data-tags="ctf">
         <div class="proj-head">
           <h3>CloudSEK Hiring CTF — Write-up</h3>
           <div class="tools"><span>CTF</span><span>Write-up</span><span>2 Rounds</span></div>
@@ -658,7 +655,6 @@
         </a>
       </div>
     </div>
-    <div class="filter-empty" id="projectEmpty">No projects match that filter — try "All".</div>
   </div>
 </section>
 
@@ -669,20 +665,18 @@
       <h2>Skills &amp; tools</h2>
       <p>What I use to monitor, detect, and test.</p>
     </div>
-    <div class="filter-row" id="skillFilters" role="group" aria-label="Filter skills by category">
-      <button class="filter-pill active" data-filter="all">All</button>
-      <button class="filter-pill" data-filter="siem">SIEM &amp; Detection</button>
-      <button class="filter-pill" data-filter="monitoring">Enterprise Monitoring</button>
-      <button class="filter-pill" data-filter="testing">Testing &amp; Assessment</button>
-      <button class="filter-pill" data-filter="platforms">Platforms &amp; Scripting</button>
-      <button class="filter-pill" data-filter="frameworks">Frameworks &amp; Practices</button>
+    <div class="filter-bar" id="skillFilters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="siem">SIEM &amp; Detection</button>
+      <button class="filter-btn" data-filter="monitoring">Enterprise Monitoring</button>
+      <button class="filter-btn" data-filter="testing">Testing &amp; Assessment</button>
+      <button class="filter-btn" data-filter="platforms">Platforms &amp; Scripting</button>
     </div>
-    <div class="skills-grid reveal" id="skillsGrid">
+    <div class="skills-grid reveal">
       <div class="skill-col" data-tags="siem">
         <div class="cat">SIEM &amp; Detection</div>
         <ul>
           <li>Microsoft Sentinel</li>
-          <li>KQL</li>
           <li>Splunk</li>
           <li>Microsoft Defender</li>
           <li>Palo Alto Firewall</li>
@@ -694,16 +688,12 @@
           <li>Datto RMM</li>
           <li>AD Audit Plus</li>
           <li>PRTG</li>
-          <li>ServiceNow</li>
-          <li>Jira</li>
         </ul>
       </div>
       <div class="skill-col" data-tags="testing">
         <div class="cat">Testing &amp; Assessment</div>
         <ul>
           <li>Burp Suite</li>
-          <li>Wireshark</li>
-          <li>Nmap</li>
           <li>Nessus</li>
           <li>OpenVAS</li>
         </ul>
@@ -712,25 +702,11 @@
         <div class="cat">Platforms &amp; Scripting</div>
         <ul>
           <li>Linux</li>
-          <li>Windows Server / AD</li>
-          <li>Microsoft Azure</li>
-          <li>Python</li>
-          <li>JavaScript</li>
-          <li>SQL</li>
-          <li>GitHub</li>
-        </ul>
-      </div>
-      <div class="skill-col" data-tags="frameworks">
-        <div class="cat">Frameworks &amp; Practices</div>
-        <ul>
-          <li>NIST CSF / IR</li>
-          <li>ITIL</li>
-          <li>OWASP</li>
-          <li>PCI DSS</li>
+          <li>Windows</li>
+          <li>Python <span class="lvl">basic</span></li>
         </ul>
       </div>
     </div>
-    <div class="filter-empty" id="skillEmpty">No skills match that filter — try "All".</div>
   </div>
 </section>
 
@@ -774,31 +750,31 @@
       <p>If you're looking for someone who treats every alert as worth checking twice, I'd love to hear from you.</p>
 
       <div class="contact-links">
-        <div class="contact-cluster">
+        <div class="contact-item">
           <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=allayyanavarprajwal@gmail.com&amp;su=Portfolio%20Inquiry" target="_blank" rel="noopener" aria-label="Email via Gmail">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
             allayyanavarprajwal@gmail.com
           </a>
-          <button class="copy-btn" data-copy="allayyanavarprajwal@gmail.com" aria-label="Copy email address" title="Copy email address">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <button class="copy-btn" data-copy="allayyanavarprajwal@gmail.com" aria-label="Copy email">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
           </button>
         </div>
-        <div class="contact-cluster">
+        <div class="contact-item">
           <a href="https://linkedin.com/in/prajwal-allayyanavar" target="_blank" rel="noopener" aria-label="LinkedIn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
             in/prajwal-allayyanavar
           </a>
-          <button class="copy-btn" data-copy="https://linkedin.com/in/prajwal-allayyanavar" aria-label="Copy LinkedIn link" title="Copy LinkedIn link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <button class="copy-btn" data-copy="https://linkedin.com/in/prajwal-allayyanavar" aria-label="Copy LinkedIn link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
           </button>
         </div>
-        <div class="contact-cluster">
+        <div class="contact-item">
           <a href="https://github.com/Prajwal4707" target="_blank" rel="noopener" aria-label="GitHub">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.2c0 4.5 2.87 8.31 6.84 9.66.5.1.68-.22.68-.49 0-.24-.01-1.03-.01-1.87-2.78.61-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.2C22 6.58 17.52 2 12 2Z"/></svg>
             github.com/Prajwal4707
           </a>
-          <button class="copy-btn" data-copy="https://github.com/Prajwal4707" aria-label="Copy GitHub link" title="Copy GitHub link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <button class="copy-btn" data-copy="https://github.com/Prajwal4707" aria-label="Copy GitHub link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
           </button>
         </div>
       </div>
@@ -806,13 +782,8 @@
   </div>
 </section>
 
-<div class="copy-toast" id="copyToast">
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
-  <span id="copyToastText">Copied to clipboard</span>
-</div>
-
 <footer>
-  © 2026 Prajwal Allayyanavar — built with intent, monitored around the clock.
+  <div>© 2026 Prajwal Allayyanavar — built with intent, monitored around the clock.</div>
 </footer>
 
 <script>
@@ -856,83 +827,61 @@
     setInterval(tick, 1500);
   }
 
-  // ---------- copy to clipboard ----------
-  const copyToast = document.getElementById('copyToast');
-  const copyToastText = document.getElementById('copyToastText');
-  let toastTimer = null;
+  // theme toggle
+  const htmlEl = document.documentElement;
+  const savedTheme = localStorage.getItem('portfolio-theme');
+  if(savedTheme){ htmlEl.setAttribute('data-theme', savedTheme); }
 
-  async function copyText(text){
-    try{
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch(err){
-      // fallback for environments without clipboard API access
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      let ok = false;
-      try{ ok = document.execCommand('copy'); } catch(e){ ok = false; }
-      document.body.removeChild(ta);
-      return ok;
-    }
+  function toggleTheme(){
+    const current = htmlEl.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    htmlEl.setAttribute('data-theme', next);
+    localStorage.setItem('portfolio-theme', next);
   }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('themeToggleMobile').addEventListener('click', toggleTheme);
 
+  // copy to clipboard
   document.querySelectorAll('.copy-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
       const value = btn.getAttribute('data-copy');
-      const success = await copyText(value);
-
-      copyToastText.textContent = success ? 'Copied to clipboard' : 'Could not copy — select and copy manually';
-      copyToast.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => copyToast.classList.remove('show'), 2200);
-
-      if(success){
-        btn.classList.add('copied');
-        setTimeout(() => btn.classList.remove('copied'), 1500);
+      try{
+        await navigator.clipboard.writeText(value);
+      } catch(e){
+        const ta = document.createElement('textarea');
+        ta.value = value; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
       }
+      const original = btn.innerHTML;
+      btn.classList.add('copied');
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>';
+      setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = original; }, 1800);
     });
   });
 
-  // ---------- filters ----------
-  function setupFilters(filterRowId, itemsSelector, emptyId){
-    const filterRow = document.getElementById(filterRowId);
-    if(!filterRow) return;
-    const items = document.querySelectorAll(itemsSelector);
-    const emptyEl = document.getElementById(emptyId);
-
-    filterRow.addEventListener('click', (e) => {
-      const btn = e.target.closest('.filter-pill');
+  // filters (shared logic for skills + projects)
+  function setupFilter(barId, itemSelector){
+    const bar = document.getElementById(barId);
+    if(!bar) return;
+    const items = document.querySelectorAll(itemSelector);
+    bar.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
       if(!btn) return;
-      filterRow.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
       const filter = btn.getAttribute('data-filter');
-      let visibleCount = 0;
       items.forEach(item => {
-        const tags = (item.getAttribute('data-tags') || '').split(' ');
-        const match = filter === 'all' || tags.includes(filter);
-        item.classList.toggle('hide', !match);
-        if(match) visibleCount++;
+        const tags = item.getAttribute('data-tags') || '';
+        if(filter === 'all' || tags.split(' ').includes(filter)){
+          item.classList.remove('filtered-out');
+        } else {
+          item.classList.add('filtered-out');
+        }
       });
-      if(emptyEl) emptyEl.classList.toggle('show', visibleCount === 0);
     });
   }
-
-  setupFilters('projectFilters', '#projectGrid .project-card', 'projectEmpty');
-  setupFilters('skillFilters', '#skillsGrid .skill-col', 'skillEmpty');
-
-  // theme toggle (dark is default; state held in memory only for this session)
-  const themeToggle = document.getElementById('themeToggle');
-  themeToggle.addEventListener('click', () => {
-    const root = document.documentElement;
-    const isLight = root.getAttribute('data-theme') === 'light';
-    root.setAttribute('data-theme', isLight ? 'dark' : 'light');
-    themeToggle.setAttribute('aria-pressed', String(!isLight));
-  });
+  setupFilter('projectFilters', '.project-card');
+  setupFilter('skillFilters', '.skill-col');
 
   // mobile menu toggle
   const navToggle = document.getElementById('navToggle');
